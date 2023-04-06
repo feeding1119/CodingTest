@@ -12,6 +12,8 @@ while lindex != 0:
         if mm > m[i] :
             mm = m[i]
             lindex = i
+            if mm == 1:
+                break
 
     total += mm*(sum(d[lindex:rindex]))
     rindex = lindex
