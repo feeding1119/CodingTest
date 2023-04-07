@@ -70,4 +70,8 @@
 
 <p> 해결방안 : pop()의 시간 복잡도가 O(1)것과 달리 pop(0)의 시간복잡도는 O(N)이므로 큐 자료구조를 사용하여 pop(0)를 popleft()로 변환 후 통과하였다. </p>
 
+### 사용함수
+
+<p> from collections import deque : popleft()를 사용할 수 있는 deque를 사용하기위한 모듈 </p>
+
 > 출처: 프로그래머스 코딩 테스트 연습, https://programmers.co.kr/learn/challenges
