@@ -41,4 +41,4 @@
 
 ### 사용함수
 
-<p> from itertools import combinations : 조합함수 combinations(item,i)를 사용하기위한  </p>
+<p> from itertools import combinations : 조합함수 combinations(item,i)를 사용하기 위한 모듈  </p>
