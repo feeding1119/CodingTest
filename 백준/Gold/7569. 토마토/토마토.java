@@ -25,24 +25,15 @@ public class Main {
 
         tomato = new int[M][N][H];
         visited = new boolean[M][N][H];
-        boolean checkValue = false;
-
         for(int k=0;k<H;k++){
             for(int i=0;i<M;i++){
                 st = new StringTokenizer(br.readLine());
                 for(int j=0;j<N;j++){
                     int value = Integer.parseInt(st.nextToken());
                     tomato[i][j][k] = value;
-                    if(value == 0) checkValue =true;
                 }
             }
         }
-
-        if(!checkValue){
-            System.out.println(0);
-            System.exit(0);
-        }
-
 
         for(int i=0;i<M;i++){
             for(int j=0;j<N;j++){
