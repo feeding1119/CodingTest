@@ -4,10 +4,9 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-
     static int N,M;
-    static boolean[] isUsed;
     static int[] nums;
+    static boolean[] isUsed;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,29 +16,28 @@ public class Main {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
 
-        isUsed = new boolean[N+1];
-        nums = new int[M+1];
+        nums = new int[M];
+        isUsed = new boolean[N];
 
-        recursion(0);
+        dfs(0);
     }
 
-    static void recursion(int idx){
-        if(idx == M){
-
-            for(int i=0;i<M;i++){
-                System.out.print(nums[i]+1 + " ");
+    static void dfs(int index){
+        if(index == M){
+            for(int n:nums){
+                System.out.print(n+" ");
             }
             System.out.println();
             return;
         }
 
-        for(int i=0;i<N;i++){
-            if(!isUsed[i]){
-                isUsed[i] = true;
-                nums[idx] = i;
-                recursion(idx+1);
-                isUsed[i] = false;
+        for(int i=1;i<=N;i++){
+            if(!isUsed[i-1]) {
+                nums[index] = i;
+                isUsed[i - 1] = true;
+                dfs(index+1);
+                isUsed[i-1] = false;
             }
-        }
+         }
     }
 }
