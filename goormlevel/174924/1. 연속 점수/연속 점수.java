@@ -23,16 +23,10 @@ class Main {
 			
 			if(num[i]-num[i-1] == 1){
 				tempSum += num[i];
+				if(maxValue < tempSum) maxValue = tempSum;
 			}else{
-				if(tempSum != 0){
-					if(maxValue < tempSum) maxValue = tempSum;
-					tempSum = num[i];
-				}
+				tempSum = num[i];
 			}
-		}
-		
-		if(tempSum != 0){
-			if(maxValue < tempSum) maxValue = tempSum;
 		}
 		
 		System.out.print(maxValue);
