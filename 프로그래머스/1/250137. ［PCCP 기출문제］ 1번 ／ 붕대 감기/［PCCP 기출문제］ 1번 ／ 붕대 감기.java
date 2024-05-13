@@ -15,7 +15,6 @@ class Solution {
         
         
         while(currentTime <= lastTime){
-            
             if(attacks[attackIndex][0] == currentTime){
                 attackedMonster(attacks);
                 
@@ -23,8 +22,6 @@ class Solution {
             }else{
                 usingBandage();
             }
-            
-          
             currentTime++;
         }
 
