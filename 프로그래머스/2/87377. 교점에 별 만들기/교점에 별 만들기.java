@@ -63,7 +63,6 @@ class Solution {
         double E = a[2];
         double F = b[2];
         
-    
         double X = (B*F-E*D)/(A*D-B*C);
         double Y = (E*C-A*F)/(A*D-B*C);
         
