@@ -8,25 +8,20 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int N = Integer.parseInt(br.readLine());
+        PriorityQueue<Integer> q = new PriorityQueue<>();
 
-        PriorityQueue<Integer> cards = new PriorityQueue<>();
-
-        int result = 0;
+        int answer = 0 ;
         for(int i=0;i<N;i++){
-            cards.offer(Integer.parseInt(br.readLine()));
+            q.offer(Integer.parseInt(br.readLine()));
+        }
+        while(q.size() > 1){
+            int A = q.poll();
+            int B = q.poll();
+
+            answer += A+B;
+            q.offer(A+B);
         }
 
-        while(cards.size()!=1) {
-            int a = cards.poll();
-            int b = cards.poll();
-
-            int n = a+b;
-            result += n;
-
-            cards.offer(n);
-        }
-
-        System.out.println(result);
-
+        System.out.println(answer);
     }
 }
