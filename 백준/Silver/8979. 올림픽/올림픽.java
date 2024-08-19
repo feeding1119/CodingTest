@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -56,7 +55,7 @@ public class Main {
 
         int count = 0;
         for(int i=answer-1; i>=0;i--){
-            if(medal[i][0] == medal[answer][0] && medal[i][1] == medal[answer][1] && medal[i][2] == medal[answer][2]){
+            if(medal[i][3] == medal[answer][3] && medal[i][1] == medal[answer][1] && medal[i][2] == medal[answer][2]){
                 count++;
             }else break;
         }
