@@ -11,39 +11,30 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
 
         int[] count= new int[301];
+        int[] dp = new int[N+1];
+
+        for(int i=0;i<=N;i++){
+            dp[i] = i;
+        }
 
         int plus = 2;
         count[1] = 1;
         for(int i=2;i<=300;i++){
             count[i] = count[i-1] + (count[i-1]-count[i-2]) + plus++;
+            if(count[i] <=N ) dp[count[i]] = 1;
         }
 
-        int[] dp = new int[N+1];
-
-        Arrays.fill(dp,Integer.MAX_VALUE);
-
-        dp[1] = 1;
 
         for(int i=2;i<=N;i++){
             int index = 1;
             while(true){
-                if(i - count[index] < 0) break;
+                int diff = i - count[index++];
+                if(diff < 0) break;
 
-                if(i - count[index] ==0) {
-                    dp[i] = 1;
-                    break;
-                }
-
-                if(dp[i-count[index]] != Integer.MAX_VALUE){
-
-                    dp[i] = Math.min(dp[i],dp[i-count[index]]+1);
-                }
-
-                index++;
-
+                dp[i] = Math.min(dp[i],dp[diff]+1);
             }
         }
-        
+
         System.out.println(dp[N]);
 
 
