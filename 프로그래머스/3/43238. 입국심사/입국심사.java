@@ -1,8 +1,15 @@
+import java.util.*;
 class Solution {
     
     static long answer = 0;
     public long solution(int n, int[] times) {
-        dfs(0L,10000000000001L,n,times);
+        
+        Arrays.sort(times);
+        
+        long start = 0;
+        long end = times[times.length-1] * (long)n;
+        
+        dfs(start,end,n,times);
         return answer;
     }
     
