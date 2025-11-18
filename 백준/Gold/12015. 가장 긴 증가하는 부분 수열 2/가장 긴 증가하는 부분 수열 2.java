@@ -1,4 +1,5 @@
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,37 +20,38 @@ public class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        ArrayList<Integer> ls = new ArrayList<>();
+        int[] lis = new int[n];
 
-        ls.add(arr[0]);
+        lis[0] = arr[0];
+        int len = 1;
 
         for(int i=1;i<n;i++){
 
             int key = arr[i];
 
-            if(ls.get(ls.size()-1) < key){
-                ls.add(key);
+            if(lis[len-1] < key){
+                lis[len++] = key;
             }else{
                 int s = 0;
-                int e = ls.size()-1;
+                int e = len-1;
 
                 while(s<e){
                     int mid = (s+e)/2;
 
-                    if(ls.get(mid) < key){
+                    if(lis[mid] < key){
                         s = mid+1;
                     }else{
                         e = mid;
                     }
                 }
 
-                ls.set(s,key);
+                lis[s] = key;
             }
 
 
         }
 
-        System.out.println(ls.size());
+        System.out.println(len);
     }
 
 }
