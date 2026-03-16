@@ -1,81 +1,88 @@
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.StringTokenizer;
 
-    import java.io.BufferedReader;
-    import java.io.IOException;
-    import java.io.InputStreamReader;
-    import java.util.*;
+public class Main {
 
-    class Node implements Comparable<Node>{
-        int end;
-        int cost;
+    static int N,M;
+    static ArrayList<ArrayList<Node>> graph;
 
-        Node(int end, int cost){
-            this.end  = end;
+    static class Node implements Comparable<Node>{
+        int idx,cost;
+
+        public Node(int idx,int cost){
+            this.idx = idx;
             this.cost = cost;
         }
 
         @Override
-        public int compareTo(Node o) {
-            return cost - o.cost;
+        public int compareTo(Node o){
+            return this.cost - o.cost;
         }
     }
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
 
-    public class Main {
+        N = Integer.parseInt(br.readLine());
+        M = Integer.parseInt(br.readLine());
 
-        static int N,M;
-        static List<List<Node>> bus = new ArrayList<>();
-        static boolean[] v;
-        static int[] dist;
+        graph = new ArrayList<>();
+        for(int i=0;i<=N;i++){
+            graph.add(new ArrayList<>());
+        }
 
-        public static void main(String[] args) throws IOException {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-            N = Integer.parseInt(br.readLine());
-            M = Integer.parseInt(br.readLine());
-
-            v= new boolean[N+1];
-            dist = new int[N+1];
-
-            for(int i=0;i<=N;i++){
-                bus.add(new ArrayList<>());
-            }
-
-            StringTokenizer st;
-            for(int i=0;i<M;i++){
-                st = new StringTokenizer(br.readLine());
-                int A = Integer.parseInt(st.nextToken());
-                int B = Integer.parseInt(st.nextToken());
-                int cost = Integer.parseInt(st.nextToken());
-
-                bus.get(A).add(new Node(B,cost));
-            }
-
-            Arrays.fill(dist,Integer.MAX_VALUE);
-
+        for(int i=0;i<M;i++){
             st = new StringTokenizer(br.readLine());
 
-            int start = Integer.parseInt(st.nextToken());
-            int end = Integer.parseInt(st.nextToken());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            int c = Integer.parseInt(st.nextToken());
 
-            PriorityQueue<Node> pq = new PriorityQueue<>();
-            pq.offer(new Node(start,0));
-            dist[start] = 0;
+            graph.get(a).add(new Node(b,c));
+        }
 
-            while(!pq.isEmpty()){
-                Node curNode = pq.poll();
+        st = new StringTokenizer(br.readLine());
 
-                if(!v[curNode.end]){
-                    v[curNode.end] = true;
+        int start = Integer.parseInt(st.nextToken());
+        int end = Integer.parseInt(st.nextToken());
 
-                    for(Node n : bus.get(curNode.end)){
-                        if(!v[n.end] && dist[n.end] > dist[curNode.end] + n.cost){
-                            dist[n.end] = dist[curNode.end] + n.cost;
-                            pq.offer(new Node(n.end,dist[n.end]));
-                        }
-                    }
+        int answer = dijkstra(start,end);
+
+        System.out.println(answer);
+
+    }
+
+    public static int dijkstra(int start,int end){
+        PriorityQueue<Node> pq = new PriorityQueue<>();
+        boolean[] v = new boolean[N+1];
+        int[] cost = new int[N+1];
+
+        for(int i=0;i<N+1;i++){
+            cost[i] = Integer.MAX_VALUE;
+        }
+
+        cost[start] = 0;
+        pq.offer(new Node(start,0));
+
+        while(!pq.isEmpty()){
+            Node now = pq.poll();
+
+            if(v[now.idx]) continue;
+            v[now.idx] = true;
+
+            for(Node next : graph.get(now.idx)){
+                if(now.cost+next.cost < cost[next.idx]){
+                    cost[next.idx] = now.cost+next.cost;
+                    pq.offer(new Node(next.idx,cost[next.idx]));
                 }
             }
-
-            System.out.println(dist[end]);
         }
+
+        return cost[end];
     }
+}
