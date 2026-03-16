@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -20,7 +21,7 @@ public class Main {
 
         @Override
         public int compareTo(Node o){
-            return this.cost - o.cost;
+            return this.cost-o.cost;
         }
     }
     public static void main(String[] args) throws IOException {
@@ -33,7 +34,7 @@ public class Main {
 
         graph = new ArrayList<>();
 
-        for(int i=0;i<=N;i++){
+        for(int i=0;i<N+1;i++){
             graph.add(new ArrayList<>());
         }
 
@@ -50,9 +51,8 @@ public class Main {
 
         st = new StringTokenizer(br.readLine());
 
-        int v1 = Integer.parseInt(st.nextToken());
+        int v1= Integer.parseInt(st.nextToken());
         int v2 = Integer.parseInt(st.nextToken());
-
 
         boolean flag = false;
 
@@ -80,40 +80,33 @@ public class Main {
         if(answer > ans2) answer = ans2;
 
         System.out.println(answer);
+
+
     }
 
     public static int dijkstra(int start,int end){
+        PriorityQueue<Node> pq = new PriorityQueue<>();
         boolean[] v = new boolean[N+1];
         int[] cost = new int[N+1];
 
-        for(int i=0;i<=N;i++){
+        for(int i=0;i<N+1;i++){
             cost[i] = Integer.MAX_VALUE;
         }
 
         cost[start] = 0;
+        pq.offer(new Node(start,0));
 
-        for(int i=0;i<N;i++){
+        while(!pq.isEmpty()){
+            Node now = pq.poll();
 
-            int nodeValue = Integer.MAX_VALUE;
-            int nodeIdx = 0;
+            if(v[now.idx]) continue;
+            v[now.idx] = true;
 
-            for(int j=1;j<=N;j++){
-                if(!v[j] && cost[j] < nodeValue){
-                    nodeValue = cost[j];
-                    nodeIdx = j;
+            for(Node next : graph.get(now.idx)){
+                if(cost[next.idx] > now.cost + next.cost){
+                    cost[next.idx] = now.cost + next.cost;
+                    pq.offer(new Node(next.idx,cost[next.idx]));
                 }
-            }
-
-            v[nodeIdx] = true;
-
-            for(int j=0;j<graph.get(nodeIdx).size();j++){
-
-                Node adjNode = graph.get(nodeIdx).get(j);
-
-                if(cost[adjNode.idx] > nodeValue + adjNode.cost){
-                    cost[adjNode.idx] = nodeValue + adjNode.cost;
-                }
-
             }
         }
 
