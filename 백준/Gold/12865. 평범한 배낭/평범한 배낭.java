@@ -22,21 +22,19 @@ public class Main {
         }
 
         int[][] dp = new int[n+1][k+1];
-
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= k; j++) {
-                // 1. 안 넣는 경우
-                dp[i][j] = dp[i - 1][j];
-                // 2. 넣는 경우
-                if (j >= w[i]) {
+        
+        for(int i=1;i<n+1;i++){
+            for(int j=1;j<k+1;j++){
+                
+                dp[i][j] = dp[i-1][j];
+                
+                if(j>=w[i]){
                     dp[i][j] = Math.max(
-                            dp[i][j],
-                            dp[i - 1][j - w[i]] + v[i]
+                            dp[i][j],dp[i-1][j-w[i]]+v[i]
                     );
                 }
             }
         }
-
         System.out.println(dp[n][k]);
     }
 }
