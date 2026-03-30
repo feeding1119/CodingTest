@@ -1,4 +1,5 @@
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,7 +8,6 @@ import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
-
     static int N,M;
     static ArrayList<ArrayList<Node>> graph;
 
@@ -26,12 +26,13 @@ public class Main {
     }
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
 
         N = Integer.parseInt(br.readLine());
         M = Integer.parseInt(br.readLine());
 
+        StringTokenizer st;
         graph = new ArrayList<>();
+
         for(int i=0;i<=N;i++){
             graph.add(new ArrayList<>());
         }
@@ -51,10 +52,7 @@ public class Main {
         int start = Integer.parseInt(st.nextToken());
         int end = Integer.parseInt(st.nextToken());
 
-        int answer = dijkstra(start,end);
-
-        System.out.println(answer);
-
+        System.out.println(dijkstra(start,end));
     }
 
     public static int dijkstra(int start,int end){
@@ -76,13 +74,14 @@ public class Main {
             v[now.idx] = true;
 
             for(Node next : graph.get(now.idx)){
-                if(now.cost+next.cost < cost[next.idx]){
-                    cost[next.idx] = now.cost+next.cost;
+                if(next.cost + cost[now.idx] < cost[next.idx]){
+                    cost[next.idx] = next.cost + cost[now.idx];
                     pq.offer(new Node(next.idx,cost[next.idx]));
                 }
             }
         }
 
         return cost[end];
+
     }
 }
