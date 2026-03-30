@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,13 +12,13 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        int[] indegree = new int[n+1];
-
         ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
 
-        for(int i=0;i<=n;i++){
+        for(int i=0;i<n+1;i++){
             graph.add(new ArrayList<>());
         }
+
+        int[] indegree = new int[n+1];
 
         for(int i=0;i<m;i++){
             st = new StringTokenizer(br.readLine());
@@ -32,12 +31,11 @@ public class Main {
         }
 
         PriorityQueue<Integer> pq = new PriorityQueue<>();
+        ArrayList<Integer> answer = new ArrayList<>();
 
-        for(int i=1;i<=n;i++){
+        for(int i=1;i<n+1;i++){
             if(indegree[i] == 0) pq.offer(i);
         }
-
-        ArrayList<Integer> answer = new ArrayList<>();
 
         while(!pq.isEmpty()){
             int now = pq.poll();
@@ -49,9 +47,10 @@ public class Main {
             }
         }
 
-
-        for(int i=0;i<answer.size();i++){
+        for(int i=0;i<n;i++){
             System.out.print(answer.get(i)+" ");
         }
+
+
     }
 }
